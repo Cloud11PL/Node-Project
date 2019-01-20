@@ -1,0 +1,25 @@
+{
+  "name": "node-project",
+  "version": "1.0.0",
+  "description": "Node Project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cloud11PL/Node-Project.git"
+  },
+  "author": "Wojciech",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Cloud11PL/Node-Project/issues"
+  },
+  "homepage": "https://github.com/Cloud11PL/Node-Project#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "mssql": "^4.3.0",
+    "mysql": "^2.16.0"
+  }
+}
