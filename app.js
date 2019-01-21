@@ -4,6 +4,8 @@ var bodyParser = require("body-parser");
 var app = express(); 
 var mysql = require('mysql');
 
+module.exports = app;
+
 // Body Parser Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -23,34 +25,12 @@ var server = app.listen(process.env.PORT || 8080, function () {
     console.log("App now running on port", port);
  });
 
-/*
-const con = mysql.createConnection({
-  host: '139.59.156.31',
-  port: '3306',
-  user: 'node_connection',
-  password: 'nodeconnection',
-  database: 'node_testing'
-});
-*/
-
-//Initiallising connection string
-/*
-var dbConfig = {
-    host: '139.59.156.31',
-    user: 'node_tester_local',
-    password: 'nodeconnection',
-    database: 'node_testing',
-    port: 3306,
-};
-*/
-
 const mc = mysql.createConnection({
     host: '139.59.156.31',
     port: '3306',
-    user: 'node_tester_local',
+    user: 'user_plus',
     password: 'nodeconnection',
     database: 'node_testing',
-    //port: 3306,
 });
 
 mc.connect();
@@ -64,11 +44,6 @@ app.get('/', function(req,res){
         console.log(rows);
     })
 });
-
-//Post single patient ok
-//Get all patients ok
-//Get specific patient ok
-//Update patient data 
 
 //Get all patients
 app.get('/patients', function(req,res){
@@ -130,83 +105,3 @@ app.put('/patient/update', (req, res) => {
         return res.send({error: false, data: results, message: 'Patient has been updated'});
     });
 });
-
-/*
-    mc.query('INSERT INTO patient ',
-     { firstname : patient.firstname,
-       surname: patient.surname,
-       marital_status: patient.marital_status,
-       sex: patient.sex,
-       phone_number: patient.phone_number }, function (error, results, fields) {
-*/
-
-
-/*
-//Function to connect to database and execute query
-var  executeQuery = function(res, query){             
-    sql.createConnection(dbConfig, function (err) {
-        if (err) {   
-                    console.log("Error while connecting database :- " + err);
-                    res.send(err);
-                 }
-                 else {
-                        // create Request object
-                        var request = new sql.Request();
-                        // query to the database
-                        request.query(query, function (err, res) {
-                          if (err) {
-                                     console.log("Error while querying database :- " + err);
-                                     res.send(err);
-                                    }
-                                    else {
-                                      res.send(res);
-                                           }
-                              });
-                      }
-     });           
-}
-
-/*
-con.connect((err) => {
-  if (err) throw err;
-  console.log('Connected!');
-})
-
-con.query('SELECT * FROM patient', (err,rows) => {
-    if(err) throw err;
-  
-    console.log('Data received from Db:\n');
-    console.log(rows);
-});
-*/
-
-/*
-app.get("/", function(req,res){
-    var que;ry = "select * from patient";
-    executeQuery(res,query);
-});
-
-//GET API
-app.get("/api/patient", function(req , res){
-    var query = "select * from patient";
-    executeQuery (res, query);
-});
-
-//POST API
-app.post("/api/user", function(req , res){
-    var query = "INSERT INTO [user] (Name,Email,Password) VALUES (req.body.Name,req.body.Email,req.body.Password)";
-    executeQuery (res, query);
-});
-
-//PUT API
-app.put("/api/user/:id", function(req , res){
-    var query = "UPDATE [user] SET Name= " + req.body.Name  +  " , Email=  " + req.body.Email + "  WHERE Id= " + req.params.id;
-    executeQuery (res, query);
-});
-
-// DELETE API
-app.delete("/api/user /:id", function(req , res){
-    var query = "DELETE FROM [user] WHERE Id=" + req.params.id;
-    executeQuery (res, query);
-});
-*/
