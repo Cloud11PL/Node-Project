@@ -14,8 +14,8 @@ module.exports = function(app) {
 	
 	app.post('/api/auth/signin', controller.signin);
 
-    app.get('/api/getAll', patientController.getAll);
-    //verifyJwtToken.verifyToken,
+    app.get('/api/getAll', verifyJwtToken.verifyToken, patientController.getAll);
+
     app.delete('/api/destoryByID', patientController.destoryByID);
 
     app.post('/api/ilness', ilnessController.addIlness);

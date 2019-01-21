@@ -1,11 +1,13 @@
 const jwt = require('jsonwebtoken');
 const config = require('../config/config.js');
 const db = require('../config/db.config.js');
-//const Role = db.role;
 const User = db.user;
 
 verifyToken = (req, res, next) => {
-	let token = req.headers['x-access-token'];
+	let token = req.headers['x-access-token'] || req.headers['authorization'];
+	if (token.startsWith('Bearer ')) {
+    	token = token.slice(7, token.length);
+  	}
   
 	if (!token){
 		return res.status(403).send({ 

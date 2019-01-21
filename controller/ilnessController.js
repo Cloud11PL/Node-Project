@@ -1,8 +1,6 @@
 const db = require('../config/db.config.js');
 const config = require('../config/config.js');
 const Ilness = db.ilness;
-//const Op = db.Sequelize.Op;
-
 var jwt = require('jsonwebtoken');
 var bcrypt = require('bcryptjs');
 

@@ -1,7 +1,6 @@
 const db = require('../config/db.config.js');
 const config = require('../config/config.js');
 const Patient = db.patient;
-//const Op = db.Sequelize.Op;
 
 var jwt = require('jsonwebtoken');
 var bcrypt = require('bcryptjs');

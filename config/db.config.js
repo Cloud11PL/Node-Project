@@ -15,30 +15,14 @@ const sequelize = new Sequelize(env.database, env.username, env.password, {
 });
  
 const db = {};
-/*
-const dbP = {};
-const dbI = {};
- */
 
-db.Sequelize = Sequelize; //Users
+db.Sequelize = Sequelize;
 db.sequelize = sequelize;
-
-/*
-dbI.Sequelize = Sequelize; //Ilnesses
-dbI.sequelize = sequelize;
-
-dbP.sequelize = sequelize; //Patients
-dbP.Sequelize = Sequelize;
-*/
 
 db.user = require('../model/user.model.js')(sequelize, Sequelize);
 db.patient = require('../model/patient.model.js')(sequelize, Sequelize);
 db.ilness = require('../model/ilness.model.js')(sequelize, Sequelize);
 
 db.patient.hasMany(db.ilness, { foreignKey: 'ilnessId', otherKey: 'patientId'} );
-//db.ilness.hasOne(db.patient, { foreignKey: 'id' });
-/*
-module.exports = dbP;
-module.exports = dbI;
-*/
+
 module.exports = db;
