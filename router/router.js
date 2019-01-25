@@ -1,9 +1,10 @@
 const verifySignUp = require('./verifySignUp');
 const verifyJwtToken = require('./verifyJwtToken');
 const authJwt = require('./verifyJwtToken');
- 
+const cors = require('cors');
+
 module.exports = function(app) {
- 
+    //rest parametr
     const controller = require('../controller/controller.js');
     const patientController = require('../controller/patientController.js');
     const ilnessController = require('../controller/ilnessController.js');

@@ -2,8 +2,8 @@ const db = require('../config/db.config.js');
 const config = require('../config/config.js');
 const User = db.user;
 
-var jwt = require('jsonwebtoken');
-var bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 
 exports.signup = (req, res) => {
 	console.log("Processing func -> SignUp");
@@ -26,7 +26,7 @@ exports.signup = (req, res) => {
 
 exports.signin = (req, res) => {
 	console.log("Sign-In");
-	
+	console.log(req.body);
 	User.findOne({
 		where: {
 			username: req.body.username
@@ -36,17 +36,21 @@ exports.signin = (req, res) => {
 			return res.status(404).send('User Not Found.');
 		}
 
-		var passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
+		console.log(req.body.username)
+		console.log(req.body)
+		console.log(user.password)
+
+		const passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
+
 		if (!passwordIsValid) {
 			return res.status(401).send({ auth: false, accessToken: null, reason: "Invalid Password!" });
 		}
 		
-		var token = jwt.sign({ id: user.id }, config.secret, {
+		const token = jwt.sign({ id: user.id }, config.secret, {
 		  expiresIn: 86400 // expires in 24 hours
 		});
 		
-		res.status(200).send({ auth: true, accessToken: token });
-		
+		return res.status(200).send({ auth: true, accessToken: token });
 	}).catch(err => {
 		res.status(500).send('Error -> ' + err);
 	});

@@ -1,8 +1,8 @@
 const db = require('../config/db.config.js');
 const config = require('../config/config.js');
 const Ilness = db.ilness;
-var jwt = require('jsonwebtoken');
-var bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 
 exports.addIlness = (req,res) => {
     console.log("Add Ilness to the Patient");
@@ -10,7 +10,10 @@ exports.addIlness = (req,res) => {
     Ilness.create({
 		ilness: req.body.ilness,
         present: req.body.present,
-        iksde: req.body.id
+        /*
+        To ma byc patient ID zeby przypisac!!!
+        */
+        patientID: req.body.patientID
 	}).then(ilness => {
         console.log("Ilness registered succesfully")
         res.status(200).json({

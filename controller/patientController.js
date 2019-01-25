@@ -2,8 +2,8 @@ const db = require('../config/db.config.js');
 const config = require('../config/config.js');
 const Patient = db.patient;
 
-var jwt = require('jsonwebtoken');
-var bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 
 exports.register = (req, res) => {
 	// Save User to Database
@@ -24,9 +24,7 @@ exports.register = (req, res) => {
             "description": "Patient Content Page",
             "user": patient
 		});
-    }).catch(err => {
-		res.status(500).send("Error -> " + err);
-    });
+    }).catch(err => res.status(500).send("Error -> " + err));
 }
 
 exports.getAll = (req,res) => {

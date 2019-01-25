@@ -1,7 +1,14 @@
-var express = require('express');
-var app = express();
-var bodyParser = require('body-parser');
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser');
 app.use(bodyParser.json())
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 require('./router/router.js')(app);
 const db = require('./config/db.config.js');
   
@@ -12,10 +19,10 @@ db.sequelize.query('SET FOREIGN_KEY_CHECKS = 0', {raw: true}).then(res => {
       });
 
 
-var server = app.listen(8080, function () {
+  const server = app.listen(8080, function () {
  
-  var host = server.address().address
-  var port = server.address().port
+  const host = server.address().address
+  const port = server.address().port
  
   console.log("App listening at http://%s:%s", host, port)
 })
