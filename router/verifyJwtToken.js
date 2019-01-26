@@ -4,10 +4,11 @@ const db = require('../config/db.config.js');
 const User = db.user;
 
 verifyToken = (req, res, next) => {
-	const token = req.headers['x-access-token'] || req.headers['authorization'];
+	let token = req.headers['x-access-token'] || req.headers['authorization'];
 	if (token.startsWith('Bearer ')) {
 		//nowa zm
     	token = token.slice(7, token.length);
+			console.log(token)
   	}
 	//regexp
 	if (!token){
