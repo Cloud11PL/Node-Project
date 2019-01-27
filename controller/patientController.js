@@ -31,7 +31,10 @@ exports.getAll = (req,res) => {
     console.log("Get all patients from DB");
 
     Patient.findAll({
-        limit:10
+        /*
+        To trzeba potem fajnie zrobic
+        */
+        limit:25
     }).then(patients => {
         console.log("Patients imported succesfully")
         res.status(200).json({
