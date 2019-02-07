@@ -7,12 +7,12 @@ module.exports = (sequelize, Sequelize) => {
 		  type: Sequelize.STRING
 	  },
 	  dateOfBirth: {
-		  type: Sequelize.DATE
+		  type: Sequelize.DATEONLY
 	  },
 	  sex: {
 		  type: Sequelize.STRING
 	  },
-      PESEL: {
+    PESEL: {
 		  type: Sequelize.STRING
 	  }
 	});
