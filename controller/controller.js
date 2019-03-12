@@ -46,7 +46,7 @@ exports.signin = (req, res) => {
 			return res.status(401).send({ auth: false, accessToken: null, reason: "Invalid Password!" });
 		}
 		
-		const expiresInTime = 30
+		const expiresInTime = 600
 
 		const token = jwt.sign({ id: user.id }, config.secret, {
 		  expiresIn: expiresInTime 

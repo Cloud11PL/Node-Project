@@ -15,6 +15,7 @@ verifyToken = (req, res, next) => {
 
 	const token = input.replace(/\b\S+\s/ig,'')
 	jwt.verify(token, config.secret, (err, decoded) => {
+		console.log(err)
 		if (err) {
 			return res.status(401).json({ 
 					auth: false, 
