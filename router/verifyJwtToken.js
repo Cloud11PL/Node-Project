@@ -4,34 +4,29 @@ const db = require('../config/db.config.js');
 const User = db.user;
 
 verifyToken = (req, res, next) => {
-	let token = req.headers['x-access-token'] || req.headers['authorization'];
-	if (token.startsWith('Bearer ')) {
-		//nowa zm
-    	token = token.slice(7, token.length);
-			console.log(token)
-  	}
-	//regexp
-	if (!token){
-		return res.status(403).send({ 
-			//jsonem
-			auth: false, message: 'No token provided.' 
+	let input = req.headers['x-access-token'] || req.headers['authorization'];
+	console.log(input)
+
+	if (!input) {
+		return res.status(401).json({ 
+			auth: false, message: 'No token provided. Unauthenticated.' 
 		});
 	}
 
+	const token = input.replace(/\b\S+\s/ig,'')
 	jwt.verify(token, config.secret, (err, decoded) => {
-		if (err){
-			return res.status(500).send({ 
+		if (err) {
+			return res.status(401).json({ 
 					auth: false, 
-					message: 'Fail to Authentication. Error -> ' + err 
+					message: 'Unauthenticated. Error: ' + err 
 				});
 		}
 		req.userId = decoded.id;
-		next();
+		next()
 	});
 };
 
 let authJwt = {};
-
 authJwt.verifyToken = verifyToken;
 
 module.exports = authJwt;

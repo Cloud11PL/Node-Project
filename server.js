@@ -12,8 +12,7 @@ app.use(function(req, res, next) {
 
 require('./router/router.js')(app);
 const db = require('./config/db.config.js');
-  
-// force: true will drop the table if it already exists
+
 db.sequelize.query('SET FOREIGN_KEY_CHECKS = 0', {raw: true}).then(res => {
         db.sequelize.sync({force: false})
         console.log('Drop and Resync with { force: false }');

@@ -1,3 +1,7 @@
+/**
+Schema for a patient.
+ */
+
 module.exports = (sequelize, Sequelize) => {
 	const Patient = sequelize.define('patients', {
 	  firstname: {

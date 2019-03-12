@@ -6,18 +6,13 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
 exports.register = (req, res) => {
-	// Save User to Database
-	console.log("Processing func -> SignUp");
-	
+	console.log("Processing func -> SignUp");	
 	Patient.create({
 		firstname: req.body.firstname,
 		surname: req.body.surname,
 		dateOfBirth: req.body.dateOfBirth,
 		sex: req.body.sex,
         PESEL: req.body.PESEL
-        /*
-        choroby genetyczne, operacje, alergie 
-        */
 	}).then(patient => {
         console.log("Patient registered succesfully")
         res.status(200).json({
@@ -31,9 +26,6 @@ exports.getAll = (req,res) => {
     console.log("Get all patients from DB");
 
     Patient.findAll({
-        /*
-        To trzeba potem fajnie zrobic
-        */
         limit:25
     }).then(patients => {
         console.log("Patients imported succesfully")
@@ -42,24 +34,25 @@ exports.getAll = (req,res) => {
             "patients": patients
 		});
     }).catch(err => {
-        res.send(500).send("Error -> " + err);
+        res.send(500).send("Error: " + err.toString());
     })
 }
 
-exports.destoryByID = (req,res) => {
-    console.log("Destory patient by ID");
-
+exports.destroyByID = (req,res) => {
+    console.log("Destory patient by ID")
+    console.log(req.params.id)
+    const deleteId = req.params.id
     Patient.destroy({
         where: {
-            id: req.body.id
+            id: deleteId
         }
     }).then(msg => {
-        console.log(`Patient by the ID of ${req.body.id}`);
+        console.log(`Patient by the ID of ${deleteId}`)
         res.status(200).json({
-            "description": `Patient by the ID of ${req.body.id}`,
+            "description": `Patient by the ID of ${deleteId}`,
             "destroyed": true
         })
     }).catch(err => {
-        res.send(500).send("Error -> " + err);
+        res.send(500).send("Error -> " + err)
     })
 }

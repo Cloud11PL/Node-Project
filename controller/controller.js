@@ -46,11 +46,13 @@ exports.signin = (req, res) => {
 			return res.status(401).send({ auth: false, accessToken: null, reason: "Invalid Password!" });
 		}
 		
+		const expiresInTime = 30
+
 		const token = jwt.sign({ id: user.id }, config.secret, {
-		  expiresIn: 86400 // expires in 24 hours
+		  expiresIn: expiresInTime 
 		});
 		
-		return res.status(200).send({ auth: true, accessToken: token });
+		return res.status(200).send({ auth: true, accessToken: token, expiresIn: expiresInTime});
 	}).catch(err => {
 		res.status(500).send('Error -> ' + err);
 	});

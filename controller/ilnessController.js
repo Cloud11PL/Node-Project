@@ -10,9 +10,6 @@ exports.addIlness = (req,res) => {
     Ilness.create({
 		ilness: req.body.ilness,
         present: req.body.present,
-        /*
-        To ma byc patient ID zeby przypisac!!!
-        */
         patientID: req.body.patientID
 	}).then(ilness => {
         console.log("Ilness registered succesfully")

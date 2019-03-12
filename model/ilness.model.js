@@ -6,7 +6,7 @@ module.exports = (sequelize, Sequelize) => {
 	  present: {
 		  type: Sequelize.BOOLEAN
 	  },
-      patientID: {
+    patientID: {
 		  type: Sequelize.INTEGER
 	  }
     });
