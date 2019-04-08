@@ -20,4 +20,5 @@ module.exports = function(app) {
 
     app.post('/api/ilness', ilnessController.addIlness);
 
+    app.post('/api/isAuth', [verifyJwtToken.verifyToken], controller.isAuth);
 };
