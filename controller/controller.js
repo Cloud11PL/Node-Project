@@ -6,26 +6,31 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
 exports.signup = (req, res) => {
-	console.log("Processing func -> SignUp");
+	console.log('Processing func -> SignUp');
 	
-	User.create({
-		name: req.body.name,
-		username: req.body.username,
-		email: req.body.email,
-		password: bcrypt.hashSync(req.body.password, 8)
-	}).then(user => {
-        console.log("User registered succesfully")
-        res.status(200).json({
-            "description": "User Content Page",
-            "user": user
+
+	if (req.body.name !== null && req.body.username !== null && req.body.email !== null && req.body.email !== null) {
+		User.create({
+			name: req.body.name,
+			username: req.body.username,
+			email: req.body.email,
+			password: bcrypt.hashSync(req.body.password, 8)
+		}).then(user => {
+				console.log('User registered succesfully')
+				res.status(200).send({
+						'description': 'User Content Page',
+						'user': user
+				});
+		}).catch(err => {
+			res.status(500).send('Error while signing up');
 		});
-    }).catch(err => {
-		res.status(500).send("Error -> " + err);
-    });
+	} else {
+			res.status(500).send('Incomplete data.');
+	}
 }
 
 exports.signin = (req, res) => {
-	console.log("Sign-In");
+	console.log('Sign-In');
 	console.log(req.body);
 	User.findOne({
 		where: {
@@ -33,7 +38,7 @@ exports.signin = (req, res) => {
 		}
 	}).then(user => {
 		if (!user) {
-			return res.status(404).send('User Not Found.');
+			return res.status(404).send({ reason: 'User Not Found.'});
 		}
 
 		console.log(req.body.username)
@@ -43,7 +48,7 @@ exports.signin = (req, res) => {
 		const passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
 
 		if (!passwordIsValid) {
-			return res.status(401).send({ auth: false, accessToken: null, reason: "Invalid Password!" });
+			return res.status(401).send({ auth: false, accessToken: null, reason: 'Invalid Password!' });
 		}
 		
 		const expiresInTime = 600
@@ -56,4 +61,8 @@ exports.signin = (req, res) => {
 	}).catch(err => {
 		res.status(500).send('Error -> ' + err);
 	});
+}
+
+exports.isAuth = (req, res) => {
+	return res.status(200).send({ auth: true })
 }
